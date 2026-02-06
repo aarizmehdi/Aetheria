@@ -202,7 +202,7 @@ const App: React.FC = () => {
                 <div className="flex items-center gap-4 bg-black/20 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-lg">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-white/40 uppercase">SYS.ONLINE</span>
+                        <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-white/40 uppercase">AETHERIA</span>
                     </div>
                 </div>
                 <div className="flex gap-3">
