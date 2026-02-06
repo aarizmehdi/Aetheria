@@ -111,4 +111,4 @@ const GeminiAssistant: React.FC<GeminiAssistantProps> = ({ insight, loading }) =
   );
 };
 
-export default GeminiAssistant;
+export default GeminiAssistant; 

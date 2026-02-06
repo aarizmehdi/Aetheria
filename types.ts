@@ -55,4 +55,4 @@ export interface GeoSearchResult {
   longitude: number;
   country?: string;
   admin1?: string;
-}
+} 

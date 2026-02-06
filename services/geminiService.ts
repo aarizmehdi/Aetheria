@@ -135,4 +135,4 @@ export const generateWeatherInsight = async (weather: WeatherData): Promise<Gemi
   } catch (error) {
     return getLocalInsight();
   }
-};
+}; 

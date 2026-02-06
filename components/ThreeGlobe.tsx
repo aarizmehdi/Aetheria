@@ -606,4 +606,4 @@ const ThreeGlobe: React.FC<ThreeGlobeProps> = ({ condition, lat, lng, isDay = tr
   return <div ref={mountRef} className="fixed inset-0 z-0 w-full h-full overflow-hidden" />;
 };
 
-export default ThreeGlobe;
+export default ThreeGlobe; 

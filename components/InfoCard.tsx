@@ -45,4 +45,4 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, value, unit, icon, delay = 0
   );
 };
 
-export default InfoCard;
+export default InfoCard; 

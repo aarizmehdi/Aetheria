@@ -106,4 +106,4 @@ export const getMockCoordinates = (): Coordinates => ({
   lng: -74.0060,
   name: "New York, USA",
   country: "USA"
-});
+}); 

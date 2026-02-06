@@ -116,4 +116,4 @@ const CursorEffect: React.FC<CursorEffectProps> = ({ condition }) => {
   );
 };
 
-export default CursorEffect;
+export default CursorEffect; 
