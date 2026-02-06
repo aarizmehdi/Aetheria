@@ -58,13 +58,14 @@ export const generateWeatherInsight = async (weather: WeatherData): Promise<Gemi
     };
   };
 
-  if (!process.env.API_KEY) {
-    console.log("Aetheria: Running on Local Intelligence (No API Key)");
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
+    console.log("Aetheria: Running on Local Intelligence (No API Key or Placeholder detected)");
     return new Promise(resolve => setTimeout(() => resolve(getLocalInsight()), 800));
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     const model = "gemini-3-flash-preview";
 
     const prompt = `
