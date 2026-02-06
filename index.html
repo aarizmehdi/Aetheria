@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aetheria | Where weather meets art</title>
+
+
+  <meta name="description"
+    content="Experience weather like never before. Aetheria combines real-time data with cinematic 3D Earth visualization, generative audio atmospheres, and fluid physics. Created by Aariz Mehdi." />
+  <meta name="keywords"
+    content="Weather App, 3D Earth, Three.js, React, Immersive Design, Aariz Mehdi, Data Visualization" />
+  <meta name="author" content="Aariz Mehdi" />
+  <meta name="robots" content="index, follow" />
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aetheria-forcast.vercel.app/" />
+  <meta property="og:title" content="Aetheria | Where weather meets art" />
+  <meta property="og:description"
+    content="Experience weather like never before. Aetheria combines real-time data with cinematic 3D Earth visualization, generative audio atmospheres, and fluid physics. Created by Aariz Mehdi." />
+  <meta property="og:image" content="https://aetheria-forcast.vercel.app/og-image.jpg" />
+
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Aetheria Weather" />
+  <meta property="twitter:description" content="Immersive 3D weather dashboard by Aariz Mehdi." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "three": "https://esm.sh/three@^0.182.0",
+    "gsap": "https://esm.sh/gsap@^3.14.2"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
