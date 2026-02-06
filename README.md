@@ -71,7 +71,7 @@ Aetheria is built with a **"Fluid-Adaptive"** architecture that ensures a premiu
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/aarizmehdi/aetheria.git
+    git clone https://github.com/aarizmehdi/aetheria-forecast.git
     cd aetheria
     ```
 
