@@ -11,7 +11,7 @@ const CursorEffect: React.FC<CursorEffectProps> = ({ condition }) => {
   const followerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     document.documentElement.style.cursor = 'none';
 
     const onMouseMove = (e: MouseEvent) => {

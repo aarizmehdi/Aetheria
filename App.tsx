@@ -53,6 +53,12 @@ const App: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
 
   useEffect(() => {
@@ -159,7 +165,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-screen md:h-screen md:overflow-hidden' : 'h-screen overflow-hidden'}`}>
+    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-[100dvh] md:h-screen md:overflow-hidden' : 'h-[100dvh] overflow-hidden'}`}>
       <LoadingScreen loading={isAppLoading} />
 
       <div className={`fixed inset-0 bg-gradient-to-b ${weather ? getGradient(weather.condition, weather.isDay) : 'from-black to-black'} z-0 transition-all duration-[2000ms] ease-in-out opacity-100`} />
@@ -199,11 +205,9 @@ const App: React.FC = () => {
 
 
           <div className="flex justify-between items-start pointer-events-auto animate-reveal w-full pb-4">
-            <div className="flex items-center gap-4 bg-black/20 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-lg">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-white/40 uppercase">AETHERIA</span>
-              </div>
+            <div className="flex flex-col">
+              <span className="text-4xl md:text-5xl font-thin tracking-tighter text-white/90 font-sans">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              <span className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/40 uppercase">{time.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}</span>
             </div>
             <div className="flex gap-3">
               <button onClick={toggleMute} className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl">
