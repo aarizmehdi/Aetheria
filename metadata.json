@@ -1,6 +1,6 @@
 {
-  "name": "Aetheria",
-  "description": "A cinematic, award-winning weather visualization platform. Features real-time 3D planetary rendering, fluid particle simulations, and dynamic environmental audio synthesis. Engineered by Aariz Mehdi.",
+  "name": "Aetheria ",
+  "description": "A cinematic, weather visualization platform. Features real-time 3D planetary rendering, fluid particle simulations, and dynamic environmental audio synthesis. Engineered by Aariz Mehdi.",
   "requestFramePermissions": [
     "geolocation",
     "microphone"
