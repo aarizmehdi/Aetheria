@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { WeatherData, GeminiInsight } from '../types';
 
 const MOCK_NARRATIVES = {
@@ -65,8 +65,8 @@ export const generateWeatherInsight = async (weather: WeatherData): Promise<Gemi
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
-    const model = "gemini-1.5-flash";
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
       Current weather in ${weather.location}:
@@ -80,32 +80,21 @@ export const generateWeatherInsight = async (weather: WeatherData): Promise<Gemi
       2. 'outfit': Specific, fashionable outfit advice.
       3. 'activity': A distinct, creative activity suggestion suitable for this specific weather.
       4. 'music': A genre or specific vibe of music that fits the atmosphere.
+      
+      Output strictly JSON.
     `;
 
-    const response = await ai.models.generateContent({
-      model,
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            narrative: { type: Type.STRING },
-            outfit: { type: Type.STRING },
-            activity: { type: Type.STRING },
-            music: { type: Type.STRING }
-          }
-        }
-      }
-    });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-    const text = response.text;
-    if (!text) throw new Error("No response from Gemini");
+    // Clean markdown code blocks if present
+    const cleanText = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-    return JSON.parse(text) as GeminiInsight;
+    return JSON.parse(cleanText) as GeminiInsight;
 
   } catch (error) {
-    console.error("Gemini API Error, switching to Local Intelligence:", error);
+    console.error("Gemini API Error:", error);
     return getLocalInsight();
   }
 };

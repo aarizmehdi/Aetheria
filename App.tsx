@@ -56,10 +56,18 @@ const App: React.FC = () => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const model = "gemini-1.5-flash";
-    const timer = setInterval(() => setTime(new Date()), 1000);
+    const timer = setInterval(() => {
+      if (weather && typeof weather.utcOffsetSeconds === 'number') {
+        const now = new Date();
+        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        const targetTime = new Date(utc + (weather.utcOffsetSeconds * 1000));
+        setTime(targetTime);
+      } else {
+        setTime(new Date());
+      }
+    }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [weather]);
 
 
   useEffect(() => {

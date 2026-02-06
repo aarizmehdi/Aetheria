@@ -88,10 +88,11 @@ export const getWeatherData = async (coords: Coordinates): Promise<WeatherData> 
     visibility: 10,
     description: desc,
     aqi: 0,
-    forecast,
-    lat: coords.lat,
-    lng: coords.lng,
-    isDay: !!current.is_day
+    forecast: forecast,
+    lat: data.latitude,
+    lng: data.longitude,
+    isDay: data.current.is_day === 1,
+    utcOffsetSeconds: data.utc_offset_seconds
   };
 };
 

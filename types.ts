@@ -14,6 +14,7 @@ export interface WeatherData {
   lat: number;
   lng: number;
   isDay: boolean;
+  utcOffsetSeconds: number;
 }
 
 export interface ForecastDay {
