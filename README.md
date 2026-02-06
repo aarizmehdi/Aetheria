@@ -30,8 +30,6 @@
     git clone https://github.com/aariz-mehdi/aetheria.git
     ```
 
-    > **IMPORTANT:** See [SETUP.md](./SETUP.md) for API configuration instructions (Required for AI features).
-
 2.  Install dependencies:
     ```bash
     npm install
