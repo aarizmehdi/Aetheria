@@ -1,100 +1,117 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 import { WeatherData, GeminiInsight } from '../types';
 
-const MOCK_NARRATIVES = {
-  Clear: ["The sky is a vast, unblemished canvas of infinite blue.", "Sunlight pierces through, illuminating the world in high definition."],
-  Cloudy: ["A blanket of soft grey diffusion wraps the horizon.", "The world is soft, quiet, and wrapped in cotton clouds."],
-  Rain: ["Rhythm of the falling sky creates a melancholic symphony.", "Nature's tears cleanse the concrete jungle."],
-  Snow: ["Silence falls with the snow, hushing the busy world.", "A pristine layer of white transforms the familiar into the unknown."],
-  Thunderstorm: ["The atmosphere crackles with raw, electric energy.", "Nature displays its power in flashes of brilliance and sound."],
-  Fog: ["The world dissolves into a mysterious, hazy dream.", "Visibility fades, turning the familiar into a ghostly silhouette."],
-  Drizzle: ["A gentle mist kisses the earth.", "Soft droplets create a texture on the air."]
-};
-
-const MOCK_ACTIVITIES = {
-  Clear: "Perfect for high-altitude photography or a rooftop sunset session.",
-  Cloudy: "Ideal for visiting a brutalist architecture museum or deep work.",
-  Rain: "Find a jazz bar with a view of the wet streets.",
-  Snow: "Capture the silence in an audio field recording.",
-  Thunderstorm: "Watch the show from a safe, glass-walled vantage point.",
-  Fog: "Cinematic walk through an empty park.",
-  Drizzle: "A brisk walk with a waterproof trench coat."
-};
-
-const MOCK_MUSIC = {
-  Clear: "Synthwave / Solar Punk",
-  Cloudy: "Lo-Fi / Ambient",
-  Rain: "Dark Jazz / Noir",
-  Snow: "Neoclassical / Piano",
-  Thunderstorm: "Industrial / Bass",
-  Fog: "Drone / Ethereal",
-  Drizzle: "Indie / Acoustic"
-};
-
-const MOCK_OUTFITS = {
-  Clear: "Sunglasses mandatory. Light fabrics, sharp lines.",
-  Cloudy: "Monochrome layers. Texture over color.",
-  Rain: "Technical waterproof shell. Gore-Tex boots.",
-  Snow: "Heavy wool overcoat. Thermal layers. Scarf.",
-  Thunderstorm: "Stay inside. If out, full tech-wear protection.",
-  Fog: "High collar coat. Mystery vibes.",
-  Drizzle: "Water-resistant windbreaker."
-};
-
 export const generateWeatherInsight = async (weather: WeatherData): Promise<GeminiInsight> => {
-
-  const getLocalInsight = () => {
-    const narratives = MOCK_NARRATIVES[weather.condition as keyof typeof MOCK_NARRATIVES] || MOCK_NARRATIVES.Clear;
-    const narrative = narratives[Math.floor(Math.random() * narratives.length)];
-    const activity = MOCK_ACTIVITIES[weather.condition as keyof typeof MOCK_ACTIVITIES] || "Explore the unknown.";
-    const music = MOCK_MUSIC[weather.condition as keyof typeof MOCK_MUSIC] || "Silence";
-    const outfit = MOCK_OUTFITS[weather.condition as keyof typeof MOCK_OUTFITS] || "Prepare for anything.";
-
-    return {
-      narrative,
-      outfit,
-      activity,
-      music
-    };
-  };
-
+  // ✅ FIX #1: Use correct Vite environment variable
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
-    console.log("Aetheria: Running on Local Intelligence (No API Key or Placeholder detected)");
-    return new Promise(resolve => setTimeout(() => resolve(getLocalInsight()), 800));
+
+  // Debug logging
+  console.log("🔑 API Key present:", apiKey ? "YES ✅" : "NO ❌");
+  console.log("🔑 API Key length:", apiKey?.length || 0);
+
+  if (!apiKey) {
+    console.error("❌ GEMINI API KEY MISSING!");
+    console.error("Make sure you have a .env file with VITE_GEMINI_API_KEY");
+    return {
+      outfit: "Wear layers. (API Key missing in .env file)",
+      narrative: "The weather is changing. Configure your API key to unlock AI insights.",
+      activity: "Check your .env file and add VITE_GEMINI_API_KEY",
+      music: "Silence"
+    };
   }
 
   try {
+    // ✅ FIX #2: Correct SDK initialization
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `
-      Current weather in ${weather.location}:
-      Condition: ${weather.condition}
-      Temperature: ${weather.temp}°C
-      Humidity: ${weather.humidity}%
-      Wind: ${weather.windSpeed} km/h
-      
-      Provide a JSON object with:
-      1. 'narrative': A short, artistic, poetic narrative describing the feeling of this weather (max 2 sentences).
-      2. 'outfit': Specific, fashionable outfit advice.
-      3. 'activity': A distinct, creative activity suggestion suitable for this specific weather.
-      4. 'music': A genre or specific vibe of music that fits the atmosphere.
-      
-      Output strictly JSON.
-    `;
+    // ✅ FIX #3: Use stable model name (Experimental 2.0 might be restricted)
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: SchemaType.OBJECT,
+          properties: {
+            narrative: {
+              type: SchemaType.STRING,
+              description: "A poetic, artistic narrative about the weather feeling"
+            },
+            outfit: {
+              type: SchemaType.STRING,
+              description: "Specific fashionable outfit advice"
+            },
+            activity: {
+              type: SchemaType.STRING,
+              description: "Creative activity suggestion for this weather"
+            },
+            music: {
+              type: SchemaType.STRING,
+              description: "Music genre or vibe that matches the atmosphere"
+            }
+          },
+          required: ["narrative", "outfit", "activity", "music"]
+        }
+      }
+    });
 
+    const prompt = `You are a poetic weather narrator and lifestyle advisor. 
+    
+Current weather in ${weather.location}:
+- Condition: ${weather.condition}
+- Temperature: ${weather.temp}°C
+- Humidity: ${weather.humidity}%
+- Wind Speed: ${weather.windSpeed} km/h
+- Time of Day: ${weather.isDay ? 'Day' : 'Night'}
+
+Create a beautiful, artistic response with:
+
+1. NARRATIVE: Write 2 evocative, poetic sentences that capture the FEELING and MOOD of this weather. Use vivid imagery, metaphors, and sensory details. Make it beautiful and memorable.
+
+2. OUTFIT: Suggest a specific, fashionable outfit perfect for this weather. Include actual clothing items (e.g., "charcoal wool overcoat with cashmere turtleneck").
+
+3. ACTIVITY: Recommend one creative, specific activity that matches this weather perfectly (e.g., "visit a cozy bookstore café and read poetry by the window").
+
+4. MUSIC: Suggest a specific music genre or vibe that complements the atmospheric mood (e.g., "lo-fi jazz with rain sounds" or "ethereal ambient with piano").
+
+Be creative, poetic, and inspiring! Make each response unique and tailored to this specific weather condition.`;
+
+    console.log("🚀 Sending request to Gemini...");
+
+    // ✅ FIX #4: Correct API call
     const result = await model.generateContent(prompt);
-    const response = await result.response;
+    const response = result.response;
     const text = response.text();
 
-    // Clean markdown code blocks if present
-    const cleanText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    if (!text) {
+      throw new Error("No response text from Gemini");
+    }
 
-    return JSON.parse(cleanText) as GeminiInsight;
+    console.log("✅ Gemini Response received:", text);
 
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    return getLocalInsight();
+    const parsedResponse = JSON.parse(text) as GeminiInsight;
+    console.log("🤖 AI Insight Generated:", parsedResponse);
+
+    return parsedResponse;
+
+  } catch (error: any) {
+    console.error("❌ Gemini API Error:", error);
+    console.error("Error message:", error?.message);
+    console.error("Error details:", error?.response?.data || error);
+
+    // Provide fallback with weather-specific content
+    return {
+      outfit: `Layer appropriately for ${weather.temp}°C - ${weather.temp > 20 ? 'light breathable fabrics' : 'warm insulated layers'}.`,
+      narrative: `The ${weather.condition.toLowerCase()} weather paints the sky with its unique character, ${weather.isDay ? 'as daylight illuminates' : 'while night embraces'} the atmosphere.`,
+      activity: weather.condition === 'Rain'
+        ? "Brew your favorite tea and watch the rain from a cozy window spot."
+        : weather.condition === 'Clear'
+          ? "Take a refreshing walk and observe the changing light."
+          : "Find comfort in the atmospheric mood of the day.",
+      music: weather.condition === 'Rain'
+        ? "Ambient rain sounds with soft piano"
+        : weather.condition === 'Clear'
+          ? "Uplifting indie folk"
+          : "Atmospheric soundscapes"
+    };
   }
 };
