@@ -304,14 +304,14 @@ const App: React.FC = () => {
               <div className="flex gap-2 overflow-x-auto no-scrollbar pt-2 w-full">
                 {weather.forecast.slice(0, 4).map((day, idx) => (
                   <div key={idx} className="flex-1 min-w-[60px] flex flex-col items-center justify-center p-3 rounded-[2rem] bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all cursor-default group shadow-lg">
-                    <span className="text-[9px] font-mono font-bold text-white/30 mb-2 uppercase tracking-wider group-hover:text-white/60 transition-colors">{day.day}</span>
-                    {day.condition === WeatherCondition.Clear ? <Sun className="w-5 h-5 text-yellow-300 mb-1 opacity-80" /> :
-                      day.condition === WeatherCondition.Rain ? <CloudRain className="w-5 h-5 text-cyan-400 mb-1 opacity-80" /> :
-                        day.condition === WeatherCondition.Snow ? <CloudSnow className="w-5 h-5 text-indigo-200 mb-1 opacity-80" /> :
-                          day.condition === WeatherCondition.Thunderstorm ? <CloudLightning className="w-5 h-5 text-purple-400 mb-1 opacity-80" /> :
-                            day.condition === WeatherCondition.Drizzle ? <CloudDrizzle className="w-5 h-5 text-cyan-200 mb-1 opacity-80" /> :
-                              <Cloud className="w-5 h-5 text-white/60 mb-1 opacity-80" />}
-                    <span className="text-sm font-mono text-white/90">{day.high}°</span>
+                    <span className="text-[9px] font-mono font-bold text-white/30 mb-2 uppercase tracking-wider group-hover:text-white/60 transition-colors drop-shadow-md">{day.day}</span>
+                    {day.condition === WeatherCondition.Clear ? <Sun className="w-5 h-5 text-yellow-300 mb-1 opacity-80 drop-shadow-lg" /> :
+                      day.condition === WeatherCondition.Rain ? <CloudRain className="w-5 h-5 text-cyan-400 mb-1 opacity-80 drop-shadow-lg" /> :
+                        day.condition === WeatherCondition.Snow ? <CloudSnow className="w-5 h-5 text-indigo-200 mb-1 opacity-80 drop-shadow-lg" /> :
+                          day.condition === WeatherCondition.Thunderstorm ? <CloudLightning className="w-5 h-5 text-purple-400 mb-1 opacity-80 drop-shadow-lg" /> :
+                            day.condition === WeatherCondition.Drizzle ? <CloudDrizzle className="w-5 h-5 text-cyan-200 mb-1 opacity-80 drop-shadow-lg" /> :
+                              <Cloud className="w-5 h-5 text-white/60 mb-1 opacity-80 drop-shadow-lg" />}
+                    <span className="text-sm font-mono text-white/90 drop-shadow-md">{day.high}°</span>
                   </div>
                 ))}
               </div>
