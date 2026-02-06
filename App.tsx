@@ -210,11 +210,11 @@ const App: React.FC = () => {
 
 
       {weather && !isAppLoading && (
-        <main className="relative z-10 w-full min-h-screen flex flex-col justify-between pl-6 pr-4 py-6 md:p-6 md:pb-6 origin-top-left md:scale-75 md:w-[133.33%] lg:w-[133.33%] md:min-h-[133.33vh]">
+        <main className="relative z-10 w-full min-h-screen flex flex-col justify-between pl-6 pr-4 py-6 md:p-6 md:pb-6 origin-top-left md:scale-75 md:w-[133.33%] lg:w-[133.33%] md:min-h-[133.33vh] pb-64 md:pb-6">
 
 
           <div className="flex justify-between items-start pointer-events-auto animate-reveal w-full pb-4">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
               <span className="text-4xl md:text-5xl font-thin tracking-tighter text-white/90 font-sans">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               <span className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/40 uppercase">{time.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}</span>
             </div>
@@ -241,7 +241,7 @@ const App: React.FC = () => {
             <div className="flex flex-col w-full lg:flex-[1.618] animate-reveal">
 
 
-              <div className="flex items-center gap-3 mb-8 md:mb-2 text-white/60">
+              <div className="flex items-center gap-3 mb-8 md:mb-2 text-white/60 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                 <MapPin className="w-4 h-4 text-cyan-400" />
                 <span className="text-sm font-mono tracking-[0.3em] uppercase border-b border-white/10 pb-1">{weather.location}</span>
                 <span className="text-[10px] font-mono text-white/30 bg-white/5 px-2 py-0.5 rounded-sm">{weather.lat.toFixed(2)}N / {weather.lng.toFixed(2)}W</span>
@@ -249,7 +249,7 @@ const App: React.FC = () => {
 
 
               <div className="relative -ml-1">
-                <h1 className="text-[5rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
+                <h1 className="text-[5rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] font-sans">
                   {weather.temp}°
                 </h1>
               </div>
