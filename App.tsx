@@ -163,7 +163,7 @@ const App: React.FC = () => {
   useEffect(() => { if (searchOpen && searchInputRef.current) searchInputRef.current.focus(); }, [searchOpen]);
 
   const getGradient = (condition: WeatherCondition | undefined, isDay: boolean) => {
-    if (!isDay) return 'from-[#0f172a] via-[#1e293b] to-[#020617]';
+    if (!isDay) return 'from-transparent via-transparent to-transparent md:from-[#0f172a] md:via-[#1e293b] md:to-[#020617]';
     switch (condition) {
       case WeatherCondition.Clear: return 'from-[#2563eb] via-[#1d4ed8] to-[#1e3a8a]';
       case WeatherCondition.Cloudy: return 'from-[#475569] via-[#334155] to-[#0f172a]';
@@ -184,7 +184,7 @@ const App: React.FC = () => {
       {weather && <WeatherCanvas condition={weather.condition} />}
 
 
-      <div className="fixed inset-x-0 bottom-0 h-[40vh] md:h-[65vh] bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none z-0"></div>
+      <div className="fixed inset-x-0 bottom-0 h-[40vh] md:h-[65vh] bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none z-0 hidden md:block"></div>
 
 
       {searchOpen && (
@@ -210,11 +210,11 @@ const App: React.FC = () => {
 
 
       {weather && !isAppLoading && (
-        <main className="relative z-10 w-full min-h-screen flex flex-col justify-between p-6 md:p-8 pointer-events-none pb-12 md:pb-8">
+        <main className="relative z-10 w-full min-h-screen flex flex-col justify-between pl-6 pr-4 py-6 md:p-6 md:pb-6 origin-top-left md:scale-75 md:w-[133.33%] lg:w-[133.33%] md:min-h-[133.33vh]">
 
 
           <div className="flex justify-between items-start pointer-events-auto animate-reveal w-full pb-4">
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <span className="text-4xl md:text-5xl font-thin tracking-tighter text-white/90 font-sans">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               <span className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/40 uppercase">{time.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}</span>
             </div>
@@ -248,7 +248,7 @@ const App: React.FC = () => {
               </div>
 
 
-              <div className="relative -ml-2">
+              <div className="relative -ml-1">
                 <h1 className="text-[5rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
                   {weather.temp}°
                 </h1>
@@ -321,8 +321,10 @@ const App: React.FC = () => {
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        body::-webkit-scrollbar { display: none; }
-        body { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
       `}</style>

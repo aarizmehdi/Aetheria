@@ -102,7 +102,7 @@ const ThreeGlobe: React.FC<ThreeGlobeProps> = ({ condition, lat, lng, isDay = tr
     const textureLoader = new THREE.TextureLoader(manager);
 
 
-    const ambientLight = new THREE.AmbientLight(0x4040bb, isDay ? 0.4 : 0.05);
+    const ambientLight = new THREE.AmbientLight(0x4040bb, isDay ? 0.4 : 0.8);
     scene.add(ambientLight);
 
     const sunLight = new THREE.DirectionalLight(0xffffff, isDay ? 3.5 : 2.0);
@@ -603,7 +603,7 @@ const ThreeGlobe: React.FC<ThreeGlobeProps> = ({ condition, lat, lng, isDay = tr
 
   }, [lat, lng, isDay]);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0 w-full h-full overflow-hidden" />;
+  return <div ref={mountRef} className="fixed inset-0 z-0 w-full h-full overflow-hidden" />;
 };
 
 export default ThreeGlobe;

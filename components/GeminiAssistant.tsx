@@ -31,7 +31,7 @@ const GeminiAssistant: React.FC<GeminiAssistantProps> = ({ insight, loading }) =
 
       const typeInterval = setInterval(() => {
         if (i < text.length) {
-          setDisplayedText((prev) => prev + text.charAt(i));
+          setDisplayedText((prev) => text.substring(0, i + 1));
           i++;
         } else {
           clearInterval(typeInterval);
