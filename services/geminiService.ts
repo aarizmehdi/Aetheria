@@ -66,7 +66,7 @@ export const generateWeatherInsight = async (weather: WeatherData): Promise<Gemi
 
   try {
     const ai = new GoogleGenAI({ apiKey });
-    const model = "gemini-3-flash-preview";
+    const model = "gemini-1.5-flash";
 
     const prompt = `
       Current weather in ${weather.location}:

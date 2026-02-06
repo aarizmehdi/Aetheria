@@ -56,6 +56,7 @@ const App: React.FC = () => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
+    const model = "gemini-1.5-flash";
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -154,7 +155,7 @@ const App: React.FC = () => {
   useEffect(() => { if (searchOpen && searchInputRef.current) searchInputRef.current.focus(); }, [searchOpen]);
 
   const getGradient = (condition: WeatherCondition | undefined, isDay: boolean) => {
-    if (!isDay) return 'from-[#020617] via-[#0f172a] to-[#000000]';
+    if (!isDay) return 'from-[#0f172a] via-[#1e293b] to-[#020617]';
     switch (condition) {
       case WeatherCondition.Clear: return 'from-[#2563eb] via-[#1d4ed8] to-[#1e3a8a]';
       case WeatherCondition.Cloudy: return 'from-[#475569] via-[#334155] to-[#0f172a]';
@@ -165,7 +166,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-[100dvh] md:h-screen md:overflow-hidden' : 'h-[100dvh] overflow-hidden'}`}>
+    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-screen overflow-y-auto md:h-screen md:overflow-hidden' : 'h-[100dvh] overflow-hidden'}`}>
       <LoadingScreen loading={isAppLoading} />
 
       <div className={`fixed inset-0 bg-gradient-to-b ${weather ? getGradient(weather.condition, weather.isDay) : 'from-black to-black'} z-0 transition-all duration-[2000ms] ease-in-out opacity-100`} />
@@ -226,7 +227,7 @@ const App: React.FC = () => {
           <div className="flex-grow"></div>
 
 
-          <div className="flex flex-col lg:flex-row items-end gap-12 lg:gap-6 pointer-events-auto w-full mt-auto">
+          <div className="flex flex-col lg:flex-row items-end gap-8 lg:gap-6 pointer-events-auto w-full mt-auto">
 
 
             <div className="flex flex-col w-full lg:flex-[1.618] animate-reveal">
@@ -240,7 +241,7 @@ const App: React.FC = () => {
 
 
               <div className="relative -ml-2">
-                <h1 className="text-[7rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
+                <h1 className="text-[5rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
                   {weather.temp}°
                 </h1>
               </div>
