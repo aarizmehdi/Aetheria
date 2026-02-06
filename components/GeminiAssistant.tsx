@@ -80,23 +80,29 @@ const GeminiAssistant: React.FC<GeminiAssistantProps> = ({ insight, loading }) =
       <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-1000 ease-out ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
 
 
-        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 rounded-[2rem] hover:bg-white/10 transition-all hover:scale-[1.02] group/card">
-          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover/card:opacity-30 transition-opacity"><Shirt className="w-8 h-8 text-white" /></div>
-          <h4 className="text-[9px] font-mono text-indigo-300 uppercase tracking-widest mb-2">SUIT_PROTOCOL</h4>
+        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 pr-14 rounded-[2rem] hover:bg-white/10 hover:shadow-[0_0_30px_rgba(165,180,252,0.15)] transition-all hover:scale-105 duration-500 group/card cursor-pointer">
+          <div className="absolute top-0 right-0 p-4 opacity-20 group-hover/card:opacity-100 group-hover/card:rotate-12 group-hover/card:scale-110 transition-all duration-500 ease-out">
+            <Shirt className="w-10 h-10 text-white group-hover/card:text-indigo-400 transition-colors duration-500" />
+          </div>
+          <h4 className="text-[9px] font-mono text-indigo-300 uppercase tracking-widest mb-2 group-hover/card:text-indigo-200 transition-colors">SUIT_PROTOCOL</h4>
           <p className="text-xs text-white/80 font-light leading-relaxed">{insight.outfit}</p>
         </div>
 
 
-        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 rounded-[2rem] hover:bg-white/10 transition-all hover:scale-[1.02] group/card">
-          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover/card:opacity-30 transition-opacity"><Activity className="w-8 h-8 text-white" /></div>
-          <h4 className="text-[9px] font-mono text-emerald-300 uppercase tracking-widest mb-2">ACTION_VECTOR</h4>
+        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 pr-14 rounded-[2rem] hover:bg-white/10 hover:shadow-[0_0_30px_rgba(110,231,183,0.15)] transition-all hover:scale-105 duration-500 group/card cursor-pointer">
+          <div className="absolute top-0 right-0 p-4 opacity-20 group-hover/card:opacity-100 group-hover/card:rotate-12 group-hover/card:scale-110 transition-all duration-500 ease-out">
+            <Activity className="w-10 h-10 text-white group-hover/card:text-emerald-400 transition-colors duration-500" />
+          </div>
+          <h4 className="text-[9px] font-mono text-emerald-300 uppercase tracking-widest mb-2 group-hover/card:text-emerald-200 transition-colors">ACTION_VECTOR</h4>
           <p className="text-xs text-white/80 font-light leading-relaxed">{insight.activity}</p>
         </div>
 
 
-        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 rounded-[2rem] hover:bg-white/10 transition-all hover:scale-[1.02] group/card">
-          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover/card:opacity-30 transition-opacity"><Music className="w-8 h-8 text-white" /></div>
-          <h4 className="text-[9px] font-mono text-rose-300 uppercase tracking-widest mb-2">SONIC_AMBIENCE</h4>
+        <div className="relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-5 pr-14 rounded-[2rem] hover:bg-white/10 hover:shadow-[0_0_30px_rgba(253,164,175,0.15)] transition-all hover:scale-105 duration-500 group/card cursor-pointer">
+          <div className="absolute top-0 right-0 p-4 opacity-20 group-hover/card:opacity-100 group-hover/card:rotate-12 group-hover/card:scale-110 transition-all duration-500 ease-out">
+            <Music className="w-10 h-10 text-white group-hover/card:text-rose-400 transition-colors duration-500" />
+          </div>
+          <h4 className="text-[9px] font-mono text-rose-300 uppercase tracking-widest mb-2 group-hover/card:text-rose-200 transition-colors">SONIC_AMBIENCE</h4>
           <p className="text-xs text-white/80 font-light leading-relaxed">{insight.music}</p>
         </div>
 

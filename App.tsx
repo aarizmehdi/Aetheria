@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cloud, Droplets, Wind, Sun, MapPin, Search, X, Loader2, Navigation, Volume2, VolumeX, Minimize2 } from 'lucide-react';
+import { Cloud, Droplets, Wind, Sun, MapPin, Search, X, Loader2, Navigation, Volume2, VolumeX, Minimize2, CloudRain, CloudLightning, CloudSnow, CloudDrizzle } from 'lucide-react';
 import gsap from 'gsap';
 import { getWeatherData, getMockCoordinates, searchCities, reverseGeocode } from './services/weatherService';
 import { generateWeatherInsight } from './services/geminiService';
@@ -174,7 +174,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-screen overflow-y-auto md:h-screen md:overflow-hidden' : 'h-[100dvh] overflow-hidden'}`}>
+    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent h-screen overflow-y-auto md:overflow-hidden overflow-x-hidden`}>
       <LoadingScreen loading={isAppLoading} />
 
       <div className={`fixed inset-0 bg-gradient-to-b ${weather ? getGradient(weather.condition, weather.isDay) : 'from-black to-black'} z-0 transition-all duration-[2000ms] ease-in-out opacity-100`} />
@@ -218,15 +218,15 @@ const App: React.FC = () => {
               <span className="text-4xl md:text-5xl font-thin tracking-tighter text-white/90 font-sans">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               <span className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/40 uppercase">{time.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}</span>
             </div>
-            <div className="flex gap-3">
-              <button onClick={toggleMute} className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl">
-                {muted ? <VolumeX className="w-5 h-5 text-white/50" /> : <Volume2 className="w-5 h-5 text-cyan-400" />}
+            <div className="flex gap-2 md:gap-3">
+              <button onClick={toggleMute} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl">
+                {muted ? <VolumeX className="w-4 h-4 md:w-5 md:h-5 text-white/50" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" />}
               </button>
-              <button onClick={handleLocateMe} className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl">
-                <Navigation className="w-5 h-5 text-white/90" />
+              <button onClick={handleLocateMe} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl">
+                <Navigation className="w-4 h-4 md:w-5 md:h-5 text-white/90" />
               </button>
-              <button onClick={() => setSearchOpen(true)} className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl active:scale-95">
-                <Search className="w-5 h-5 text-white/90" />
+              <button onClick={() => setSearchOpen(true)} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg hover:bg-white/10 hover:scale-105 transition-all pointer-events-auto cursor-pointer flex items-center justify-center shadow-xl active:scale-95">
+                <Search className="w-4 h-4 md:w-5 md:h-5 text-white/90" />
               </button>
             </div>
           </div>
@@ -241,7 +241,7 @@ const App: React.FC = () => {
             <div className="flex flex-col w-full lg:flex-[1.618] animate-reveal">
 
 
-              <div className="flex items-center gap-3 mb-2 text-white/60">
+              <div className="flex items-center gap-3 mb-8 md:mb-2 text-white/60">
                 <MapPin className="w-4 h-4 text-cyan-400" />
                 <span className="text-sm font-mono tracking-[0.3em] uppercase border-b border-white/10 pb-1">{weather.location}</span>
                 <span className="text-[10px] font-mono text-white/30 bg-white/5 px-2 py-0.5 rounded-sm">{weather.lat.toFixed(2)}N / {weather.lng.toFixed(2)}W</span>
@@ -306,8 +306,11 @@ const App: React.FC = () => {
                   <div key={idx} className="flex-1 min-w-[60px] flex flex-col items-center justify-center p-3 rounded-[2rem] bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all cursor-default group shadow-lg">
                     <span className="text-[9px] font-mono font-bold text-white/30 mb-2 uppercase tracking-wider group-hover:text-white/60 transition-colors">{day.day}</span>
                     {day.condition === WeatherCondition.Clear ? <Sun className="w-5 h-5 text-yellow-300 mb-1 opacity-80" /> :
-                      day.condition === WeatherCondition.Rain ? <Cloud className="w-5 h-5 text-cyan-400 mb-1 opacity-80" /> :
-                        <Cloud className="w-5 h-5 text-white/60 mb-1 opacity-80" />}
+                      day.condition === WeatherCondition.Rain ? <CloudRain className="w-5 h-5 text-cyan-400 mb-1 opacity-80" /> :
+                        day.condition === WeatherCondition.Snow ? <CloudSnow className="w-5 h-5 text-indigo-200 mb-1 opacity-80" /> :
+                          day.condition === WeatherCondition.Thunderstorm ? <CloudLightning className="w-5 h-5 text-purple-400 mb-1 opacity-80" /> :
+                            day.condition === WeatherCondition.Drizzle ? <CloudDrizzle className="w-5 h-5 text-cyan-200 mb-1 opacity-80" /> :
+                              <Cloud className="w-5 h-5 text-white/60 mb-1 opacity-80" />}
                     <span className="text-sm font-mono text-white/90">{day.high}°</span>
                   </div>
                 ))}
