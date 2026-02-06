@@ -159,7 +159,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent overflow-x-hidden ${weather ? 'h-[100dvh] overflow-y-auto md:overflow-hidden' : 'h-screen overflow-hidden'}`}>
+    <div className={`relative w-full text-white bg-black font-sans selection:bg-transparent ${weather ? 'min-h-screen md:h-screen md:overflow-hidden' : 'h-screen overflow-hidden'}`}>
       <LoadingScreen loading={isAppLoading} />
 
       <div className={`fixed inset-0 bg-gradient-to-b ${weather ? getGradient(weather.condition, weather.isDay) : 'from-black to-black'} z-0 transition-all duration-[2000ms] ease-in-out opacity-100`} />
@@ -195,7 +195,7 @@ const App: React.FC = () => {
 
 
       {weather && !isAppLoading && (
-        <main className="relative z-10 w-full min-h-[100dvh] flex flex-col justify-between p-4 md:p-8 pointer-events-none pb-24 md:pb-8">
+        <main className="relative z-10 w-full min-h-screen flex flex-col justify-between p-6 md:p-8 pointer-events-none pb-12 md:pb-8">
 
 
           <div className="flex justify-between items-start pointer-events-auto animate-reveal w-full pb-4">
@@ -222,7 +222,7 @@ const App: React.FC = () => {
           <div className="flex-grow"></div>
 
 
-          <div className="flex flex-col lg:flex-row items-end gap-6 pointer-events-auto w-full">
+          <div className="flex flex-col lg:flex-row items-end gap-12 lg:gap-6 pointer-events-auto w-full mt-auto">
 
 
             <div className="flex flex-col w-full lg:flex-[1.618] animate-reveal">
@@ -236,7 +236,7 @@ const App: React.FC = () => {
 
 
               <div className="relative -ml-2">
-                <h1 className="text-[6rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
+                <h1 className="text-[7rem] md:text-[9rem] lg:text-[12rem] font-thin leading-[0.8] tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] font-sans">
                   {weather.temp}°
                 </h1>
               </div>
@@ -247,7 +247,7 @@ const App: React.FC = () => {
               </p>
 
 
-              <div className="mb-8 md:mb-0">
+              <div className="mb-12 md:mb-0 w-full">
                 <GeminiAssistant insight={insight} loading={aiLoading} />
               </div>
             </div>
@@ -288,7 +288,7 @@ const App: React.FC = () => {
               </div>
 
 
-              <div className="flex gap-2 overflow-x-auto no-scrollbar pt-2">
+              <div className="flex gap-2 overflow-x-auto no-scrollbar pt-2 w-full">
                 {weather.forecast.slice(0, 4).map((day, idx) => (
                   <div key={idx} className="flex-1 min-w-[60px] flex flex-col items-center justify-center p-3 rounded-[2rem] bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all cursor-default group shadow-lg">
                     <span className="text-[9px] font-mono font-bold text-white/30 mb-2 uppercase tracking-wider group-hover:text-white/60 transition-colors">{day.day}</span>
@@ -308,6 +308,8 @@ const App: React.FC = () => {
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
       `}</style>
