@@ -15,7 +15,7 @@
 
 ## 🌌 Overview
 
-**Aetheria Cloud** is not just a weather app; it is a **sensory experience**. By merging high-fidelity WebGL planetary rendering, procedurally generated audio, and generative AI, Aetheria transforms raw meteorological data into a living, breathing digital organism. It is designed for those who demand more than just numbers—those who want to **feel** the atmosphere.
+**Aetheria Forecast** is not just a weather app; it is a **sensory experience**. By merging high-fidelity WebGL planetary rendering, procedurally generated audio, and generative AI, Aetheria transforms raw meteorological data into a living, breathing digital organism. It is designed for those who demand more than just numbers—those who want to **feel** the atmosphere.
 
 ## 💎 Premium Features
 
